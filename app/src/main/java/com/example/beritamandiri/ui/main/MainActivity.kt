@@ -1,7 +1,8 @@
-package com.example.beritamandiri
+package com.example.beritamandiri.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.beritamandiri.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

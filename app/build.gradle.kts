@@ -56,9 +56,9 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
 
-    //    Github Bumbtech
+    //    Github Bumbtech | Glidde
     implementation ("com.github.bumptech.glide:glide:4.16.0")
 
-    // effect shimer
+    // effect shimer | Loading
     implementation ("com.facebook.shimmer:shimmer:0.5.0")
 }
