@@ -2,7 +2,6 @@ package com.example.beritamandiri.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beritamandiri.R
@@ -14,6 +13,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var adapter: NewsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,15 +24,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
+        adapter = NewsAdapter { item ->
+            // Handle onClick event
+            // Implement your click logic here
+        }
+
         val rvNews: RecyclerView = findViewById(R.id.rvNews)
 
         // Menggunakan 'this' karena sudah berada dalam konteks Activity
         rvNews.layoutManager = LinearLayoutManager(this)
 
         // Menggunakan lambd expression untuk adapter jika Anda memiliki konstruktor yang sesuai di NewsAdapter
-        rvNews.adapter = NewsAdapter {
-            // Handle onClick event
-        }
+        rvNews.adapter = adapter
     }
 
     private fun getNews() {
@@ -39,7 +43,10 @@ class MainActivity : AppCompatActivity() {
 
         apiClient.getNews().enqueue(object : Callback<NewsResponse> {
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
-                Log.d("MainActivity", response.body().toString())
+                if (response.isSuccessful) {
+                    val articles = response.body()?.articles.orEmpty() // Mengatasi kemungkinan nilai null dengan menggunakan orEmpty()
+                    adapter.setNews(articles)
+                }
             }
 
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {

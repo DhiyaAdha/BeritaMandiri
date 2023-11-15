@@ -43,6 +43,8 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("org.apache.logging.log4j:log4j-api:2.14.1")
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+
 
     // retrofit version
     implementation ("com.squareup.retrofit2:retrofit:2.5.0")
