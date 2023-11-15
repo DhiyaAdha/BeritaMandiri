@@ -1,12 +1,16 @@
 package com.example.beritamandiri.ui.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beritamandiri.R
 import com.example.beritamandiri.data.remote.ApiClient
+import com.example.beritamandiri.data.response.ArticlesItem
 import com.example.beritamandiri.data.response.NewsResponse
+import com.example.beritamandiri.ui.detail.DetailActivity
+import com.example.beritamandiri.ui.detail.DetailActivity.Companion.EXTRA_NEWS
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,9 +28,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        adapter = NewsAdapter { item ->
+        adapter = NewsAdapter {
             // Handle onClick event
             // Implement your click logic here
+            moveActivity(it)
         }
 
         val rvNews: RecyclerView = findViewById(R.id.rvNews)
@@ -36,6 +41,12 @@ class MainActivity : AppCompatActivity() {
 
         // Menggunakan lambd expression untuk adapter jika Anda memiliki konstruktor yang sesuai di NewsAdapter
         rvNews.adapter = adapter
+    }
+
+    private fun moveActivity(news: ArticlesItem) {
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(EXTRA_NEWS, news)
+        startActivity(intent)
     }
 
     private fun getNews() {
